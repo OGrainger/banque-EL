@@ -18,8 +18,12 @@ public class DatabaseConnection {
 
         return con;
     }
-    public void closeConnection(Connection connection) throws SQLException {
-        connection.close();
+    public void closeConnection(Connection connection) {
+        try {
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

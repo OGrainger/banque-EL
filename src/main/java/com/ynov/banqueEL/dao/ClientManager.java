@@ -13,12 +13,10 @@ public class ClientManager {
 
     public static Client getClientByID(int clientID) {
         Client result = new Client();
+        DatabaseConnection c = new DatabaseConnection();
+        Connection con = c.openConnection();
 
         try {
-            //Connection con = DriverManager.getConnection(DB_URL, DB_LOGIN, DB_PASSWORD);
-            DatabaseConnection c = new DatabaseConnection();
-            Connection con = c.openConnection();
-
             PreparedStatement s = con.prepareStatement("SELECT clientID, firstname, lastname, login FROM clients WHERE clientID = ?");
             s.setInt(1, clientID);
             ResultSet rs = s.executeQuery();
@@ -35,7 +33,9 @@ public class ClientManager {
             con.close();
         } catch (Exception e) {
             e.printStackTrace();
+            c.closeConnection(con);
         }
+
 
         return result;
     }
