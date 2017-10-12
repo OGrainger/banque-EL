@@ -1,6 +1,7 @@
 package com.ynov.banqueEL.model;
 
 import com.sun.istack.internal.NotNull;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -8,11 +9,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "transactions")
-public class Transaction {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int transactionID;
+public class Transaction extends AbstractRestResource {
 
     @NotNull
     private double amount;
@@ -24,12 +21,12 @@ public class Transaction {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name="debtor")
+    @JoinColumn(name="debtor_id")
     private Account debtorAccount;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name="creditor")
+    @JoinColumn(name="creditor_id")
     private Account creditorAccount;
 
     public Account getDebtorAccount() {
@@ -46,14 +43,6 @@ public class Transaction {
 
     public void setCreditorAccount(Account creditorAccount) {
         this.creditorAccount = creditorAccount;
-    }
-
-    public int getTransactionID() {
-        return transactionID;
-    }
-
-    public void setTransactionID(int transactionID) {
-        this.transactionID = transactionID;
     }
 
     public double getAmount() {
@@ -77,7 +66,7 @@ public class Transaction {
     }
 
     public String toString() {
-        return transactionID + " " + amount + " " + date.toString() + " " + description;
+        return amount + " " + date.toString() + " " + description;
     }
 
 }

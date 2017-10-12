@@ -7,11 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "accounts")
-public class Account {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int number;
+public class Account extends AbstractRestResource {
 
     private String description;
 
@@ -20,7 +16,7 @@ public class Account {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name="clientID")
+    @JoinColumn(name = "client_id")
     private Client client;
 
     @OneToMany(mappedBy = "debtorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -55,15 +51,6 @@ public class Account {
         this.client = client;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-
 
     public String getDescription() {
         return description;
@@ -82,6 +69,6 @@ public class Account {
     }
 
     public String toString() {
-        return number + " " + getClient().getClientID() + " " + description + " " + money;
+        return description + " " + money;
     }
 }

@@ -2,55 +2,48 @@ package com.ynov.banqueEL.model;
 
 import com.sun.istack.internal.NotNull;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
 @Table(name = "clients")
-public class Client {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int clientID;
+public class Client extends AbstractRestResource {
 
     @NotNull
-    @Column(name = "firstname")
-    private String firstName;
+    private String firstname;
 
     @NotNull
-    @Column(name = "lastname")
-    private String lastName;
+    private String lastname;
 
     @NotNull
     private String password;
 
     @NotNull
     private String login;
+
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Account> accounts;
 
-    public int getClientID() {
-        return clientID;
-    }
 
-    public void setClientID(int clientID) {
-        this.clientID = clientID;
-    }
+    // GETTER SETTER
 
     public String getFirstName() {
-        return firstName;
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastName() {
-        return lastName;
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getPassword() {
@@ -70,7 +63,7 @@ public class Client {
     }
 
     public String toString() {
-        return clientID + " " + firstName + " " + lastName + " " + login;
+        return firstname + " " + lastname + " " + login;
     }
 
     public List<Account> getAccounts() {
