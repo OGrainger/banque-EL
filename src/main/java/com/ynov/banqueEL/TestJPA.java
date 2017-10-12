@@ -23,7 +23,6 @@ public class TestJPA {
         try {
             factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
             EntityManager em = factory.createEntityManager();
-/*
 
             Client client = new Client();
             client.setLogin("dummy");
@@ -57,27 +56,24 @@ public class TestJPA {
             accounts.add(b);
 
 
-
             client.setAccounts(accounts);
 
 
             em.getTransaction().begin();
             em.persist(client);
             em.getTransaction().commit();
-            logger.info("NEW CLIENT : " + client.toString());*/
+            logger.info("NEW CLIENT : " + client.toString());
 
 
-            /*TypedQuery<Client> tQuery = em.createQuery("from Client", Client.class);
+            TypedQuery<Client> tQuery = em.createQuery("from Client", Client.class);
             List<Client> clientList = tQuery.getResultList();
 
             PersistenceUtil util = Persistence.getPersistenceUtil();
 
             for (Client c : clientList) {
-                logger.info("GET CLIENT : " + c.getClientID());
-                c.getAccounts().forEach(a -> {
-                    logger.info("GET ACCOUNT : " + a.getNumber());
-                });
-            }*/
+                logger.info("GET CLIENT : " + c.getResourceId());
+                c.getAccounts().forEach(acc -> logger.info("GET ACCOUNT : " + acc.getResourceId()));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
