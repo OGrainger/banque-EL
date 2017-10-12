@@ -1,9 +1,9 @@
-package com.ynov.banqueEL;
+package com.ynov.online.bank;
 
 
-import com.ynov.banqueEL.model.Account;
-import com.ynov.banqueEL.model.Client;
-import com.ynov.banqueEL.model.Transaction;
+import com.ynov.online.bank.model.Account;
+import com.ynov.online.bank.model.Client;
+import com.ynov.online.bank.model.Transaction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

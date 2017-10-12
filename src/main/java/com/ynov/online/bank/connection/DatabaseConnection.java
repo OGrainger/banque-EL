@@ -1,4 +1,4 @@
-package com.ynov.banqueEL;
+package com.ynov.online.bank.connection;
 
 import java.sql.*;
 
