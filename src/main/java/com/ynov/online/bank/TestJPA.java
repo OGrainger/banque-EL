@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TestJPA {
 
-    private static final String PERSISTENCE_UNIT_NAME = "banque-EL";
+    private static final String PERSISTENCE_UNIT_NAME = "online-bank";
     private static EntityManagerFactory factory;
 
     private static Logger logger = LogManager.getLogger(TestJPA.class);
@@ -72,6 +72,7 @@ public class TestJPA {
 
             for (Client c : clientList) {
                 logger.info("GET CLIENT : " + c.getResourceId());
+                logger.info("GOT PERSIST ACCOUNT ? : " + util.isLoaded(c.getAccounts()));
                 c.getAccounts().forEach(acc -> logger.info("GET ACCOUNT : " + acc.getResourceId()));
             }
         } catch (Exception e) {
