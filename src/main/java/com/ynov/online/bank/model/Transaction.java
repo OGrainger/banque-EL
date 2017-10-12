@@ -1,7 +1,6 @@
-package com.ynov.banqueEL.model;
+package com.ynov.online.bank.model;
 
 import com.sun.istack.internal.NotNull;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -11,7 +10,6 @@ import java.sql.Timestamp;
 @Table(name = "transactions")
 public class Transaction extends AbstractRestResource {
 
-    @NotNull
     private double amount;
 
     @CreationTimestamp
@@ -19,15 +17,16 @@ public class Transaction extends AbstractRestResource {
 
     private String description;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name="debtor_id")
     private Account debtorAccount;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name="creditor_id")
     private Account creditorAccount;
+
+
+    // GETTER SETTER
 
     public Account getDebtorAccount() {
         return debtorAccount;

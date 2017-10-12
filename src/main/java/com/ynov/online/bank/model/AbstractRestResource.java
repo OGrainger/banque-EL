@@ -1,4 +1,4 @@
-package com.ynov.banqueEL.model;
+package com.ynov.online.bank.model;
 
 
 import org.hibernate.annotations.GenericGenerator;
@@ -13,6 +13,9 @@ public class AbstractRestResource {
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "id", unique = true)
     private String resourceId;
+
+
+    // GETTER SETTER
 
     public String getResourceId() {
         return resourceId;

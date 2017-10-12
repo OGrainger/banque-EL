@@ -1,4 +1,4 @@
-package com.ynov.banqueEL.model;
+package com.ynov.online.bank.model;
 
 import com.sun.istack.internal.NotNull;
 
@@ -11,10 +11,8 @@ public class Account extends AbstractRestResource {
 
     private String description;
 
-    @NotNull
     private double money;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
@@ -24,6 +22,7 @@ public class Account extends AbstractRestResource {
 
     @OneToMany(mappedBy = "creditorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> creditorTransactions;
+
 
     //GETTER SETTER
 
