@@ -1,18 +1,54 @@
 package com.ynov.banqueEL.model;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "accounts")
 public class Account {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int number;
     private int clientID;
     private String description;
     private double money;
+    @ManyToOne
+    @JoinColumn(name="ClientID")
+    private Client client;
+    @OneToMany(mappedBy = "debtorAccount", cascade = CascadeType.ALL)
+    private List<Transaction> debtorTransactions;
+    @OneToMany(mappedBy = "creditorAccount", cascade = CascadeType.ALL)
+    private List<Transaction> creditorTransactions;
 
-    public String toString() {
-        return number + ' ' + clientID + ' ' + description + ' ' + money;
+    //GETTER SETTER
+
+    public List<Transaction> getDebtorTransactions() {
+        return debtorTransactions;
+    }
+
+    public void setDebtorTransactions(List<Transaction> debtorTransactions) {
+        this.debtorTransactions = debtorTransactions;
+    }
+
+    public List<Transaction> getCreditorTransactions() {
+        return creditorTransactions;
+    }
+
+    public void setCreditorTransactions(List<Transaction> creditorTransactions) {
+        this.creditorTransactions = creditorTransactions;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public int getNumber() {
-        return this.number;
+        return number;
     }
 
     public void setNumber(int number) {
@@ -20,7 +56,7 @@ public class Account {
     }
 
     public int getClientID() {
-        return this.clientID;
+        return clientID;
     }
 
     public void setClientID(int clientID) {
@@ -28,7 +64,7 @@ public class Account {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
@@ -36,10 +72,14 @@ public class Account {
     }
 
     public double getMoney() {
-        return this.money;
+        return money;
     }
 
     public void setMoney(double money) {
         this.money = money;
+    }
+
+    public String toString() {
+        return number + ' ' + clientID + ' ' + description + ' ' + money;
     }
 }

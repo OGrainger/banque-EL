@@ -6,7 +6,7 @@
 
     <groupId>fr</groupId>
     <version>0.0.1-SNAPSHOT</version>
-    <artifactId>JPA</artifactId>
+    <artifactId>Banque-EL</artifactId>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
