@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DatabaseConnection {
 
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/database";
+    public static final String DB_URL = "jdbc:mysql://localhost:3306/database-TEST";
     public static final String DB_LOGIN = "root";
     public static final String DB_PASSWORD = "password";
 
@@ -12,14 +12,19 @@ public class DatabaseConnection {
         Connection con = null;
         try {
             con = DriverManager.getConnection(DB_URL, DB_LOGIN, DB_PASSWORD);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return con;
     }
-    public void closeConnection(Connection connection) throws SQLException {
-        connection.close();
+    public void closeConnection(Connection connection) {
+        try {
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

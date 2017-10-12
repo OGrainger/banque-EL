@@ -1,34 +1,59 @@
 package com.ynov.banqueEL.model;
 
-public class Account {
+import com.sun.istack.internal.NotNull;
 
-    private int number;
-    private int clientID;
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "accounts")
+public class Account extends AbstractRestResource {
+
     private String description;
+
+    @NotNull
     private double money;
 
-    public String toString() {
-        return number + ' ' + clientID + ' ' + description + ' ' + money;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @OneToMany(mappedBy = "debtorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> debtorTransactions;
+
+    @OneToMany(mappedBy = "creditorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> creditorTransactions;
+
+    //GETTER SETTER
+
+    public List<Transaction> getDebtorTransactions() {
+        return debtorTransactions;
     }
 
-    public int getNumber() {
-        return this.number;
+    public void setDebtorTransactions(List<Transaction> debtorTransactions) {
+        this.debtorTransactions = debtorTransactions;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public List<Transaction> getCreditorTransactions() {
+        return creditorTransactions;
     }
 
-    public int getClientID() {
-        return this.clientID;
+    public void setCreditorTransactions(List<Transaction> creditorTransactions) {
+        this.creditorTransactions = creditorTransactions;
     }
 
-    public void setClientID(int clientID) {
-        this.clientID = clientID;
+    public Client getClient() {
+        return client;
     }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
@@ -36,10 +61,14 @@ public class Account {
     }
 
     public double getMoney() {
-        return this.money;
+        return money;
     }
 
     public void setMoney(double money) {
         this.money = money;
+    }
+
+    public String toString() {
+        return description + " " + money;
     }
 }
