@@ -1,5 +1,7 @@
 package com.ynov.banqueEL.model;
 
+import com.sun.istack.internal.NotNull;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,15 +12,21 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int number;
-    private int clientID;
+
     private String description;
+
+    @NotNull
     private double money;
+
+    @NotNull
     @ManyToOne
-    @JoinColumn(name="ClientID")
+    @JoinColumn(name="clientID")
     private Client client;
-    @OneToMany(mappedBy = "debtorAccount", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "debtorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> debtorTransactions;
-    @OneToMany(mappedBy = "creditorAccount", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "creditorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> creditorTransactions;
 
     //GETTER SETTER
@@ -55,13 +63,7 @@ public class Account {
         this.number = number;
     }
 
-    public int getClientID() {
-        return clientID;
-    }
 
-    public void setClientID(int clientID) {
-        this.clientID = clientID;
-    }
 
     public String getDescription() {
         return description;
@@ -80,6 +82,6 @@ public class Account {
     }
 
     public String toString() {
-        return number + ' ' + clientID + ' ' + description + ' ' + money;
+        return number + " " + getClient().getClientID() + " " + description + " " + money;
     }
 }

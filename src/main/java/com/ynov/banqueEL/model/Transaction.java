@@ -1,5 +1,8 @@
 package com.ynov.banqueEL.model;
 
+import com.sun.istack.internal.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -10,16 +13,23 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int transactionID;
-    private int debtor;
-    private int creditor;
+
+    @NotNull
     private double amount;
+
+    @CreationTimestamp
     private Timestamp date;
+
     private String description;
+
+    @NotNull
     @ManyToOne
-    @JoinColumn(name="number", insertable = false, updatable = false)
+    @JoinColumn(name="debtor")
     private Account debtorAccount;
+
+    @NotNull
     @ManyToOne
-    @JoinColumn(name="number", insertable = false, updatable = false)
+    @JoinColumn(name="creditor")
     private Account creditorAccount;
 
     public Account getDebtorAccount() {
@@ -46,22 +56,6 @@ public class Transaction {
         this.transactionID = transactionID;
     }
 
-    public int getDebtor() {
-        return debtor;
-    }
-
-    public void setDebtor(int debtor) {
-        this.debtor = debtor;
-    }
-
-    public int getCreditor() {
-        return creditor;
-    }
-
-    public void setCreditor(int creditor) {
-        this.creditor = creditor;
-    }
-
     public double getAmount() {
         return amount;
     }
@@ -83,7 +77,7 @@ public class Transaction {
     }
 
     public String toString() {
-        return transactionID + ' ' + debtor + ' ' + creditor + ' ' + amount + ' ' + date.toString() + ' ' + description;
+        return transactionID + " " + amount + " " + date.toString() + " " + description;
     }
 
 }

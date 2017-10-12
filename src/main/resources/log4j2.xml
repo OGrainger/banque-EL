@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingFile name="ROLLING"
+                     fileName="target/log4j2/roll-by-time/TestJPA.log"
+                     filePattern="target/log4j2/roll-by-time/TestJPA-%d{MM-dd}.log.gz"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd} %p %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <!--<Logger name="TestJPA" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="ROLLING"/>
+        </Logger>-->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="ROLLING"/>
+        </Root>
+    </Loggers>
+</Configuration>

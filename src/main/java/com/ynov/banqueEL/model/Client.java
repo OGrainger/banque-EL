@@ -1,5 +1,7 @@
 package com.ynov.banqueEL.model;
 
+import com.sun.istack.internal.NotNull;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,11 +12,19 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int clientID;
+
+    @NotNull
     @Column(name = "firstname")
     private String firstName;
+
+    @NotNull
     @Column(name = "lastname")
     private String lastName;
+
+    @NotNull
     private String password;
+
+    @NotNull
     private String login;
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Account> accounts;
