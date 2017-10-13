@@ -1,7 +1,5 @@
 package com.ynov.online.bank.model;
 
-import com.sun.istack.internal.NotNull;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,6 +10,8 @@ public class Account extends AbstractRestResource {
     private String description;
 
     private double money;
+
+    private String iban;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -66,6 +66,16 @@ public class Account extends AbstractRestResource {
     public void setMoney(double money) {
         this.money = money;
     }
+
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
 
     public String toString() {
         return description + " " + money;

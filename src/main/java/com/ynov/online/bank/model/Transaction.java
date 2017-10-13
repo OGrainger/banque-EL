@@ -1,9 +1,11 @@
 package com.ynov.online.bank.model;
 
-import com.sun.istack.internal.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
@@ -18,11 +20,11 @@ public class Transaction extends AbstractRestResource {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name="debtor_id")
+    @JoinColumn(name = "debtor_id")
     private Account debtorAccount;
 
     @ManyToOne
-    @JoinColumn(name="creditor_id")
+    @JoinColumn(name = "creditor_id")
     private Account creditorAccount;
 
 

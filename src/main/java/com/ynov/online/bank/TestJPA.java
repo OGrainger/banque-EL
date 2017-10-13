@@ -59,10 +59,10 @@ public class TestJPA {
             client.setAccounts(accounts);
 
 
-            em.getTransaction().begin();
+            /*em.getTransaction().begin();
             em.persist(client);
             em.getTransaction().commit();
-            logger.info("NEW CLIENT : " + client.toString());
+            logger.info("NEW CLIENT : " + client.toString());*/
 
 
             TypedQuery<Client> tQuery = em.createQuery("from Client", Client.class);
