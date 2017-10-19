@@ -1,6 +1,6 @@
-package com.ynov.banqueEL.model;
+package com.ynov.online.bank.model;
 
-import com.sun.istack.internal.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,19 +11,23 @@ public class Account extends AbstractRestResource {
 
     private String description;
 
-    @NotNull
     private double money;
 
-    @NotNull
+    private String iban;
+
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "client_id")
     private Client client;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "debtorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> debtorTransactions;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "creditorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> creditorTransactions;
+
 
     //GETTER SETTER
 
@@ -67,6 +71,16 @@ public class Account extends AbstractRestResource {
     public void setMoney(double money) {
         this.money = money;
     }
+
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
 
     public String toString() {
         return description + " " + money;

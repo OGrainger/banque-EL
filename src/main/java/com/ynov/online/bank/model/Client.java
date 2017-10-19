@@ -1,6 +1,6 @@
-package com.ynov.banqueEL.model;
+package com.ynov.online.bank.model;
 
-import com.sun.istack.internal.NotNull;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,16 +12,12 @@ import java.util.List;
 @Table(name = "clients")
 public class Client extends AbstractRestResource {
 
-    @NotNull
     private String firstname;
 
-    @NotNull
     private String lastname;
 
-    @NotNull
     private String password;
 
-    @NotNull
     private String login;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
