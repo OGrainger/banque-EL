@@ -7,6 +7,7 @@
 	</contentEntry>
 	<lib name="Maven: javax.servlet:javax.servlet-api:3.1.0" scope="PROVIDED"/>
 	<levels>
+		<level name="jstl:jstl:1.2" value="project"/>
 		<level name="Maven: mysql:mysql-connector-java:5.1.39" value="project"/>
 		<level name="Maven: org.hibernate:hibernate-entitymanager:5.2.8.Final" value="project"/>
 		<level name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" value="project"/>
@@ -23,5 +24,8 @@
 		<level name="Maven: org.apache.logging.log4j:log4j-api:2.9.1" value="project"/>
 		<level name="Maven: org.apache.logging.log4j:log4j-core:2.9.1" value="project"/>
 		<level name="Maven: javax.servlet:javax.servlet-api:3.1.0" value="project"/>
+		<level name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.8" value="project"/>
+		<level name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" value="project"/>
+		<level name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.8" value="project"/>
 	</levels>
 </component>

@@ -1,5 +1,7 @@
 package com.ynov.online.bank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,12 +16,15 @@ public class Account extends AbstractRestResource {
     private String iban;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "client_id")
     private Client client;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "debtorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> debtorTransactions;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "creditorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> creditorTransactions;
 

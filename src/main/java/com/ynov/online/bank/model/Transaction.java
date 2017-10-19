@@ -54,6 +54,10 @@ public class Transaction extends AbstractRestResource {
         this.amount = amount;
     }
 
+    public Timestamp getDate() {
+        return date;
+    }
+
     public void setDate(Timestamp date) {
         this.date = date;
     }
