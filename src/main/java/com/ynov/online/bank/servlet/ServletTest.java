@@ -29,22 +29,20 @@ public class ServletTest extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         ClientCtrl clientCtrl = new ClientCtrl();
-        Client client = clientCtrl.getWithId(50);
+        Client client = clientCtrl.getWithId(27);
 
         request.setAttribute("stringTest", "test OK");
         request.setAttribute("client", client);
-
         logger.info("DEBUG : GET " + client.getFirstName() + " " + client.getLastName());
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/index.jsp");
+
         try {
-
-
-
             dispatcher.forward(request, response);
 
         } catch (ServletException e) {
             response.setContentType("text/html");
+            //TODO : write error pages
             response.getWriter().println("<h1>Oops, something went wrong</h1>");
         }
     }

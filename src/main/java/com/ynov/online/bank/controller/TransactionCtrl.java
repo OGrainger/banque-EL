@@ -30,7 +30,7 @@ public class TransactionCtrl extends AbstractControllerResource {
         return q.getResultList();
     }
 
-    public Transaction insert(Transaction c) {
+    public Transaction create(Transaction c) {
         getEntityManagerFactory().createEntityManager().getTransaction().begin();
         getEntityManagerFactory().createEntityManager().persist(c);
         getEntityManagerFactory().createEntityManager().getTransaction().commit();

@@ -1,4 +1,4 @@
-package com.ynov.online.bank.servlet;
+package com.ynov.online.bank.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ynov.online.bank.controller.ClientCtrl;
@@ -19,6 +19,10 @@ public class RestClient extends HttpServlet {
 
     private static Logger logger = LogManager.getLogger(RestClient.class);
 
+    private static ObjectMapper mapper = new ObjectMapper();
+
+    private static ClientCtrl clientCtrl = new ClientCtrl();
+
 
     public void init() throws ServletException {
         // Do required initialization
@@ -26,7 +30,23 @@ public class RestClient extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //
+
+        String[] uri = request.getRequestURI().split("/");
+        int clientId = Integer.parseInt(uri[uri.length - 1]);
+        logger.info("PUT FOR CLIENT ID : " + clientId);
+
+        Client clientToEdit = new Client();
+        clientToEdit.setResourceId(Integer.parseInt(request.getParameter("resourceId")));
+        clientToEdit.setFirstName(request.getParameter("firstname"));
+        clientToEdit.setLastName(request.getParameter("lastname"));
+        clientToEdit.setPassword(request.getParameter("password"));
+
+        try {
+            clientCtrl.update(clientToEdit);
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.print("Error on update");
+        }
     }
 
     @Override
@@ -36,12 +56,10 @@ public class RestClient extends HttpServlet {
         int clientId = Integer.parseInt(uri[uri.length - 1]);
         logger.info("REQ FOR CLIENT ID : " + clientId);
 
-        ClientCtrl clientCtrl = new ClientCtrl();
         Client client = clientCtrl.getWithId(clientId);
 
         logger.info("GET " + client.getFirstName() + " " + client.getLastName());
 
-        ObjectMapper mapper = new ObjectMapper();
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         out.print(mapper.writeValueAsString(client));
