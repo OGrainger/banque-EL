@@ -1,6 +1,7 @@
 package com.ynov.online.bank.servlet;
 
 import com.ynov.online.bank.controller.ClientCtrl;
+import com.ynov.online.bank.model.Account;
 import com.ynov.online.bank.model.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,13 +30,20 @@ public class ServletTest extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         ClientCtrl clientCtrl = new ClientCtrl();
-        Client client = clientCtrl.getWithId(27);
+        Client client = clientCtrl.getWithId(100);
 
         request.setAttribute("stringTest", "test OK");
         request.setAttribute("client", client);
+
+        double clientFullBalance = 0;
+        for (Account a : client.getAccounts()) {
+            clientFullBalance += a.getMoney();
+        }
+
+        request.setAttribute("clientFullBalance", clientFullBalance);
         logger.info("DEBUG : GET " + client.getFirstName() + " " + client.getLastName());
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/index.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 
         try {
             dispatcher.forward(request, response);
