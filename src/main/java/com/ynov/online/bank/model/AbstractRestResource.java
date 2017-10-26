@@ -1,24 +1,16 @@
 package com.ynov.online.bank.model;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @MappedSuperclass
-public abstract class AbstractRestResource {
+abstract class AbstractRestResource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private int resourceId;
-
-
-    // GETTER SETTER
-
-    public int getResourceId() {
-        return resourceId;
-    }
-
-    public void setResourceId(int resourceId) {
-        this.resourceId = resourceId;
-    }
 }

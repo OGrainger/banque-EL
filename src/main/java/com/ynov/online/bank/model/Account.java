@@ -1,10 +1,16 @@
 package com.ynov.online.bank.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true, exclude = {"recipientTransactions","donorTransactions"})
+@Data
 @Entity
 @Table(name = "accounts")
 public class Account extends AbstractRestResource {
@@ -21,68 +27,10 @@ public class Account extends AbstractRestResource {
     private Client client;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "debtorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Transaction> debtorTransactions;
+    @OneToMany(mappedBy = "recipientAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> recipientTransactions;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "creditorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Transaction> creditorTransactions;
-
-
-    //GETTER SETTER
-
-    public List<Transaction> getDebtorTransactions() {
-        return debtorTransactions;
-    }
-
-    public void setDebtorTransactions(List<Transaction> debtorTransactions) {
-        this.debtorTransactions = debtorTransactions;
-    }
-
-    public List<Transaction> getCreditorTransactions() {
-        return creditorTransactions;
-    }
-
-    public void setCreditorTransactions(List<Transaction> creditorTransactions) {
-        this.creditorTransactions = creditorTransactions;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
-    }
-
-
-    public String getIban() {
-        return iban;
-    }
-
-    public void setIban(String iban) {
-        this.iban = iban;
-    }
-
-
-    public String toString() {
-        return description + " " + money;
-    }
+    @OneToMany(mappedBy = "donorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> donorTransactions;
 }

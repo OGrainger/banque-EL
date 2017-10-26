@@ -1,5 +1,9 @@
 package com.ynov.online.bank.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Entity;
@@ -8,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
+@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @Entity
 @Table(name = "transactions")
 public class Transaction extends AbstractRestResource {
@@ -20,58 +27,10 @@ public class Transaction extends AbstractRestResource {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "debtor_id")
-    private Account debtorAccount;
+    @JoinColumn(name = "recipient_id")
+    private Account recipientAccount;
 
     @ManyToOne
-    @JoinColumn(name = "creditor_id")
-    private Account creditorAccount;
-
-
-    // GETTER SETTER
-
-    public Account getDebtorAccount() {
-        return debtorAccount;
-    }
-
-    public void setDebtorAccount(Account debtorAccount) {
-        this.debtorAccount = debtorAccount;
-    }
-
-    public Account getCreditorAccount() {
-        return creditorAccount;
-    }
-
-    public void setCreditorAccount(Account creditorAccount) {
-        this.creditorAccount = creditorAccount;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public Timestamp getDate() {
-        return date;
-    }
-
-    public void setDate(Timestamp date) {
-        this.date = date;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String toString() {
-        return amount + " " + date.toString() + " " + description;
-    }
-
+    @JoinColumn(name = "donor_id")
+    private Account donorAccount;
 }

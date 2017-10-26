@@ -1,7 +1,7 @@
 package com.ynov.online.bank;
 
 
-import com.ynov.online.bank.controller.ClientCtrl;
+import com.ynov.online.bank.manager.ClientManager;
 import com.ynov.online.bank.model.Account;
 import com.ynov.online.bank.model.Client;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +18,7 @@ public class TestJPA {
             Client client = new Client();
             client.setLogin("dummy");
             client.setPassword("pass");
-            client.setFirstName("fn");
+            client.setFirst_name("fn");
             client.setLastName("ln");
 
             List<Account> accounts = new ArrayList<>();
@@ -45,8 +45,8 @@ public class TestJPA {
             accounts.add(b);
             client.setAccounts(accounts);*/
 
-            ClientCtrl clientCtrl = new ClientCtrl();
-            Client result = clientCtrl.getWithId(138);
+            ClientManager clientManager = new ClientManager();
+            Client result = clientManager.selectWithId(138);
             logger.info("GET CLIENT : " + result.getLogin());
             for (Account account : result.getAccounts()) {
                 logger.info("GET ACCOUNT : " + account.getIban());

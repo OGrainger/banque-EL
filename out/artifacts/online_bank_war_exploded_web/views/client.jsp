@@ -11,7 +11,7 @@
     <%--<h3>${param.test}</h3>--%>
     <h2><fmt:message key="hello"/>, ${client.getFirstName()} ${client.getLastName()} | full balance : <fmt:formatNumber value="${clientFullBalance}" type="currency" currencySymbol=""/>€</h2>
     <br>
-    <table class="col-md-12 table">
+    <table class="table col-md-12">
         <thead class="thead-dark">
         <tr>
             <th><fmt:message key="iban"/></th>
