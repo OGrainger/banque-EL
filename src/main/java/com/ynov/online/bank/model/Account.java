@@ -18,7 +18,7 @@ public class Account extends AbstractRestResource {
 
     private String description;
 
-    private double money;
+    private double balance = 0.0;
 
     private String iban;
 
@@ -39,7 +39,7 @@ public class Account extends AbstractRestResource {
     public String toString() {
         return "Account{" +
                 "description='" + description + '\'' +
-                ", money=" + money +
+                ", balance=" + balance +
                 ", iban='" + iban + '\'' +
                 ", client=" + client +
                 '}';

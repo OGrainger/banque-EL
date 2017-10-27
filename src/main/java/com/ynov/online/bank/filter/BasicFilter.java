@@ -9,7 +9,7 @@ import java.io.IOException;
 
 // Created on 26/10/2017.
 @WebFilter("/*")
-public class ConnectionFilter implements Filter {
+public class BasicFilter implements Filter {
     
     private String loginURI = "/login";
 
@@ -26,8 +26,10 @@ public class ConnectionFilter implements Filter {
 
         boolean loggedIn = session != null && session.getAttribute("client") != null;
         boolean loginRequest = req.getRequestURI().equals(loginURI);
+        boolean isPublicContent = req.getRequestURI().matches(".*(css|jpg|png|gif|js)");
+        boolean isNotAJsp = !req.getRequestURI().matches(".*(jsp)");
 
-        if (loggedIn || loginRequest || req.getRequestURI().matches(".*(css|jpg|png|gif|js)")) {
+        if ((loggedIn || loginRequest || isPublicContent) && isNotAJsp) {
             chain.doFilter(request, response);
         } else {
             res.sendRedirect(loginURI);
