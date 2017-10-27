@@ -15,9 +15,7 @@ public class AccountManager extends AbstractManagerResource {
     private static Logger logger = LogManager.getLogger(AccountManager.class);
 
     public Account selectWithId(String id) {
-        TypedQuery<Account> q = getEntityManagerFactory().createEntityManager().createQuery("from Account where resourceId = ?1", Account.class);
-        q.setParameter(1, Integer.parseInt(id));
-        Account a = q.getSingleResult();
+        Account a = getEntityManagerFactory().createEntityManager().find(Account.class, Integer.parseInt(id));
         logger.info("GOT ACCOUNT : " + a);
         return a;
     }

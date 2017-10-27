@@ -1,6 +1,5 @@
 package com.ynov.online.bank.manager;// Created on 15/10/2017.
 
-import com.ynov.online.bank.model.Account;
 import com.ynov.online.bank.model.Transaction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,9 +14,7 @@ public class TransactionManager extends AbstractManagerResource {
     private static Logger logger = LogManager.getLogger(TransactionManager.class);
 
     public Transaction selectWithId(String id) {
-        TypedQuery<Transaction> q = getEntityManagerFactory().createEntityManager().createQuery("from Transaction where resourceId = ?1", Transaction.class);
-        q.setParameter(1, Integer.parseInt(id));
-        Transaction t = q.getSingleResult();
+        Transaction t = getEntityManagerFactory().createEntityManager().find(Transaction.class, Integer.parseInt(id));
         logger.info("GOT TRANSACTION : " + t);
         return t;
     }

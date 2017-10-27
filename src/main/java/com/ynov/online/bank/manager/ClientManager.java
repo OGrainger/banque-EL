@@ -17,9 +17,7 @@ public class ClientManager extends AbstractManagerResource {
     // http://jmdoudoux.developpez.com/cours/developpons/java/chap-jpa.php
 
     public Client selectWithId(String id) {
-        TypedQuery<Client> q = getEntityManagerFactory().createEntityManager().createQuery("from Client where resourceId = ?1", Client.class);
-        q.setParameter(1, Integer.parseInt(id));
-        Client r = q.getSingleResult();
+        Client r = getEntityManagerFactory().createEntityManager().find(Client.class, Integer.parseInt(id));
         logger.info("GOT CLIENT : " + r);
         return r;
     }
@@ -40,9 +38,7 @@ public class ClientManager extends AbstractManagerResource {
         EntityTransaction t = em.getTransaction();
         t.begin();
 
-        TypedQuery<Client> q =  em.createQuery("from Client where resourceId = ?1", Client.class);
-        q.setParameter(1, updatedClient.getResourceId());
-        Client client = q.getSingleResult();
+        Client client =  em.find(Client.class, updatedClient.getResourceId());
         if (client == null) {
             logger.info("NO CLIENT FOUND FOR UPDATE : " + updatedClient);
             return null;
@@ -54,7 +50,7 @@ public class ClientManager extends AbstractManagerResource {
                 client.setLastName(updatedClient.getLastName());
             }
             em.flush();
-            client = q.getSingleResult();
+            em.persist(client);
             t.commit();
             em.close();
             logger.info("UPDATED CLIENT : " + client);

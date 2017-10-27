@@ -1,18 +1,13 @@
-<%@ page pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="language"
-       value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
-       scope="session"/>
-<fmt:setLocale value="${language}"/>
-<fmt:setBundle basename="translations.translation"/>
-
 <div class="row">
-    <%--<fmt:formatNumber value="${clientFullBalance}" type="currency" currencySymbol=""/>€--%>
-    <h2><fmt:message key="hello"/> ${client.getFirstName()} ${client.getLastName()} | full balance :</h2>
+    <div class="col s6">
+        <h2><fmt:message key="hello"/> ${client.getFirstName()} ${client.getLastName()}</h2>
+    </div>
+    <div class="col s6">
+        <fmt:formatNumber value="${clientFullBalance}" type="currency" currencySymbol=""/>€
+    </div>
     <hr>
     <h3><fmt:message key="accounts.list"/></h3>
-    <table class="table col-md-12">
+    <table class="table col 12">
         <thead>
         <tr>
             <th><fmt:message key="iban"/></th>
@@ -25,10 +20,10 @@
             <tr>
                 <td>${account.getIban()}</td>
                 <td>${account.getDescription()}</td>
-                <td><fmt:formatNumber value="${account.getMoney()}" type="currency" currencySymbol=""/>€</td>
+                <td><fmt:formatNumber value="${account.getBalance()}" type="currency" currencySymbol=""/>€</td>
             </tr>
         </c:forEach>
-        <c:if test="{!client.getAccounts().length}">
+        <c:if test="${client.getAccounts().isEmpty()}">
             <tr>
                 <td colspan="3"><fmt:message key="empty.list"/></td>
             </tr>

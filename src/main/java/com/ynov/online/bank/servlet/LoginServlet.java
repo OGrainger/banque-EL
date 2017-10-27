@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 @WebServlet(value = "/login", name = "SERVLET_LOGIN")
 public class LoginServlet extends HttpServlet {
 
+    private static ServletHelper helper = new ServletHelper();
     private static ClientManager clientManager = new ClientManager();
 
     @Override
@@ -28,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             Client c = clientManager.login(email, password);
             if (c != null) {
                 request.getSession().setAttribute("client", c.getResourceId());
-                response.sendRedirect("/client/" + c.getResourceId());
+                response.sendRedirect(helper.URL_CLIENT);
             } else {
                 hasErrors = true;
                 request.setAttribute("wrongCredentialsError", true);
@@ -40,7 +41,7 @@ public class LoginServlet extends HttpServlet {
                 c.setPassword(password);
                 clientManager.create(c);
                 request.getSession().setAttribute("client", c.getResourceId());
-                response.sendRedirect("/client/" + c.getResourceId());
+                response.sendRedirect(helper.URL_CLIENT);
             } else {
                 hasErrors = true;
                 request.setAttribute("loginAlreadyExistsError", true);
@@ -55,14 +56,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (request.getSession().getAttribute("client") != null) {
-            response.sendRedirect("/client/" + request.getSession().getAttribute("client"));
+        if (request.getSession().getAttribute(helper.CONST_CLIENT) != null) {
+            response.sendRedirect(helper.URL_CLIENT);
         } else {
             if (request.getHeader("Content-Type") != null && request.getHeader("Content-Type").equals("application/json")) {
                 response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
-                //TODO : refact on error & redirect pages
-                out.print("{\"info\":\"Session required\"}");
+                out.print(String.format(helper.JSON_INFO, "Please enter your login and password as headers"));
 
             } else {
                 request.setAttribute("!isConnected", false);

@@ -1,4 +1,4 @@
-package com.ynov.online.bank.servlet.restCtrl;// Created on 26/10/2017.
+package com.ynov.online.bank.controller;// Created on 26/10/2017.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ynov.online.bank.manager.AccountManager;

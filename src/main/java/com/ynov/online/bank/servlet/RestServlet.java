@@ -1,9 +1,5 @@
 package com.ynov.online.bank.servlet;
 
-import com.ynov.online.bank.servlet.restCtrl.RestAccountCtrl;
-import com.ynov.online.bank.servlet.restCtrl.RestClientCtrl;
-import com.ynov.online.bank.servlet.restCtrl.RestTransactionCtrl;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,14 +12,7 @@ import java.io.PrintWriter;
 @WebServlet(value = "/rest/*", name = "Rest_Client")
 public class RestServlet extends HttpServlet {
 
-    private static RestClientCtrl restClientCtrl = new RestClientCtrl();
-    private static RestAccountCtrl restAccountCtrl = new RestAccountCtrl();
-    private static RestTransactionCtrl restTransactionCtrl = new RestTransactionCtrl();
-    private static String CONST_CLIENT = "client";
-    private static String CONST_ACCOUNT = "account";
-    private static String CONST_TRANSACTION = "transaction";
-    private static String CONST_TRANSACTION_AS_DONOR = "transactions-as-donor";
-    private static String CONST_TRANSACTION_AS_RECIPIENT = "transactions-as-recipient";
+    private static ServletHelper helper = new ServletHelper();
 
     public void init() throws ServletException {
         // Do required initialization
@@ -39,15 +28,16 @@ public class RestServlet extends HttpServlet {
 
         response = authorize(request, response);
 
-        if (primaryKey.equals(CONST_CLIENT)) {
-            result = restClientCtrl.getClientWithId(primaryValue);
-
-        } else if (primaryKey.equals(CONST_ACCOUNT)) {
-            result = restAccountCtrl.getAccountWithId(primaryValue);
-        } else if (primaryKey.equals(CONST_TRANSACTION_AS_DONOR)) {
-            result = restTransactionCtrl.getTransactionsFromDonorAccount(primaryValue);
-        } else if (primaryKey.equals(CONST_TRANSACTION_AS_RECIPIENT)) {
-            result = restTransactionCtrl.getTransactionsFromRecipientAccount(primaryValue);
+        if (primaryKey.equals(helper.CONST_CLIENT)) {
+            result = helper.restClientCtrl.getClientWithId(primaryValue);
+        } else if (primaryKey.equals(helper.CONST_ACCOUNT)) {
+            result = helper.restAccountCtrl.getAccountWithId(primaryValue);
+        } else if (primaryKey.equals(helper.CONST_TRANSACTION_AS_DONOR)) {
+            result = helper.restTransactionCtrl.getTransactionsFromDonorAccount(primaryValue);
+        } else if (primaryKey.equals(helper.CONST_TRANSACTION_AS_RECIPIENT)) {
+            result = helper.restTransactionCtrl.getTransactionsFromRecipientAccount(primaryValue);
+        } else if (primaryKey.equals(helper.CONST_TRANSACTION)) {
+            result = helper.restTransactionCtrl.getTransactionWithId(primaryValue);
         }
 
         response.setContentType(MediaType.APPLICATION_JSON);
@@ -61,12 +51,12 @@ public class RestServlet extends HttpServlet {
         String primaryKey = uri[uri.length - 1];
         String result = null;
 
-        if (primaryKey.equals(CONST_CLIENT)) {
-            result = restClientCtrl.createClient(request);
-        } else if (primaryKey.equals(CONST_ACCOUNT)) {
-            result = restAccountCtrl.createAccount(request);
-        } else if (primaryKey.equals(CONST_TRANSACTION)) {
-            result = restTransactionCtrl.createTransaction(request);
+        if (primaryKey.equals(helper.CONST_CLIENT)) {
+            result = helper.restClientCtrl.createClient(request);
+        } else if (primaryKey.equals(helper.CONST_ACCOUNT)) {
+            result = helper.restAccountCtrl.createAccount(request);
+        } else if (primaryKey.equals(helper.CONST_TRANSACTION)) {
+            result = helper.restTransactionCtrl.createTransaction(request);
         }
 
         response.setContentType(MediaType.APPLICATION_JSON);
@@ -81,8 +71,8 @@ public class RestServlet extends HttpServlet {
         String primaryValue = uri[uri.length - 1];
         String result = null;
 
-        if (primaryKey.equals(CONST_CLIENT)) {
-            result = restClientCtrl.updateClient(primaryValue, request);
+        if (primaryKey.equals(helper.CONST_CLIENT)) {
+            result = helper.restClientCtrl.updateClient(primaryValue, request);
         }
 
         response.setContentType("application/json");
