@@ -1,6 +1,8 @@
 package com.ynov.online.bank.servlet;
 
+import com.ynov.online.bank.servlet.restCtrl.RestAccountCtrl;
 import com.ynov.online.bank.servlet.restCtrl.RestClientCtrl;
+import com.ynov.online.bank.servlet.restCtrl.RestTransactionCtrl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,11 +17,13 @@ import java.io.PrintWriter;
 public class RestServlet extends HttpServlet {
 
     private static RestClientCtrl restClientCtrl = new RestClientCtrl();
+    private static RestAccountCtrl restAccountCtrl = new RestAccountCtrl();
+    private static RestTransactionCtrl restTransactionCtrl = new RestTransactionCtrl();
     private static String CONST_CLIENT = "client";
     private static String CONST_ACCOUNT = "account";
     private static String CONST_TRANSACTION = "transaction";
-    private static String CONST_TRANSACTION_AS_DONOR = "transaction-as-donor";
-    private static String CONST_TRANSACTION_AS_RECIPIENT = "transaction-as-recipient";
+    private static String CONST_TRANSACTION_AS_DONOR = "transactions-as-donor";
+    private static String CONST_TRANSACTION_AS_RECIPIENT = "transactions-as-recipient";
 
     public void init() throws ServletException {
         // Do required initialization
@@ -27,19 +31,23 @@ public class RestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String[] uri = request.getRequestURI().split("/");
-        String primaryKey = uri[uri.length-2];
-        String primaryValue = uri[uri.length-1];
+        String primaryKey = uri[uri.length - 2];
+        String primaryValue = uri[uri.length - 1];
         String result = null;
+
+        response = authorize(request, response);
 
         if (primaryKey.equals(CONST_CLIENT)) {
             result = restClientCtrl.getClientWithId(primaryValue);
+
         } else if (primaryKey.equals(CONST_ACCOUNT)) {
-            //
+            result = restAccountCtrl.getAccountWithId(primaryValue);
         } else if (primaryKey.equals(CONST_TRANSACTION_AS_DONOR)) {
-            //
+            result = restTransactionCtrl.getTransactionsFromDonorAccount(primaryValue);
         } else if (primaryKey.equals(CONST_TRANSACTION_AS_RECIPIENT)) {
-            //
+            result = restTransactionCtrl.getTransactionsFromRecipientAccount(primaryValue);
         }
 
         response.setContentType(MediaType.APPLICATION_JSON);
@@ -50,15 +58,15 @@ public class RestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] uri = request.getRequestURI().split("/");
-        String primaryKey = uri[uri.length-1];
+        String primaryKey = uri[uri.length - 1];
         String result = null;
 
         if (primaryKey.equals(CONST_CLIENT)) {
             result = restClientCtrl.createClient(request);
         } else if (primaryKey.equals(CONST_ACCOUNT)) {
-            //
+            result = restAccountCtrl.createAccount(request);
         } else if (primaryKey.equals(CONST_TRANSACTION)) {
-            //
+            result = restTransactionCtrl.createTransaction(request);
         }
 
         response.setContentType(MediaType.APPLICATION_JSON);
@@ -69,14 +77,12 @@ public class RestServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] uri = request.getRequestURI().split("/");
-        String primaryKey = uri[uri.length-2];
-        String primaryValue = uri[uri.length-1];
+        String primaryKey = uri[uri.length - 2];
+        String primaryValue = uri[uri.length - 1];
         String result = null;
 
         if (primaryKey.equals(CONST_CLIENT)) {
             result = restClientCtrl.updateClient(primaryValue, request);
-        } else if (primaryKey.equals(CONST_ACCOUNT)) {
-            //
         }
 
         response.setContentType("application/json");
@@ -84,21 +90,10 @@ public class RestServlet extends HttpServlet {
         out.print(result);
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String[] uri = request.getRequestURI().split("/");
-        String primaryKey = uri[uri.length-2];
-        String primaryValue = uri[uri.length-1];
-        String result = null;
-
-        if (primaryKey.equals(CONST_CLIENT)) {
-            //
-        } else if (primaryKey.equals(CONST_ACCOUNT)) {
-            //
+    private HttpServletResponse authorize(HttpServletRequest req, HttpServletResponse res) {
+        if (req.getSession().getAttribute("client") == null) {
+            res.setStatus(403);
         }
-
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.print(result);
+        return res;
     }
 }

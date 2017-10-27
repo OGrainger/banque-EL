@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 // Created on 13/10/2017
 
@@ -57,9 +58,18 @@ public class LoginServlet extends HttpServlet {
         if (request.getSession().getAttribute("client") != null) {
             response.sendRedirect("/client/" + request.getSession().getAttribute("client"));
         } else {
-            request.setAttribute("!isConnected", false);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-            dispatcher.forward(request, response);
+            if (request.getHeader("Content-Type") != null && request.getHeader("Content-Type").equals("application/json")) {
+                response.setContentType("application/json");
+                PrintWriter out = response.getWriter();
+                //TODO : refact on error & redirect pages
+                out.print("{\"info\":\"Session required\"}");
+
+            } else {
+                request.setAttribute("!isConnected", false);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
+
         }
     }
 }

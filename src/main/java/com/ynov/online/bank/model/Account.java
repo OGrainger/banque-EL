@@ -10,7 +10,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true, exclude = {"recipientTransactions","donorTransactions"})
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "accounts")
 public class Account extends AbstractRestResource {
@@ -33,4 +34,14 @@ public class Account extends AbstractRestResource {
     @JsonIgnore
     @OneToMany(mappedBy = "donorAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> donorTransactions;
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "description='" + description + '\'' +
+                ", money=" + money +
+                ", iban='" + iban + '\'' +
+                ", client=" + client +
+                '}';
+    }
 }

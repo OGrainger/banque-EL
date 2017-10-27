@@ -14,7 +14,7 @@ public class RestClientCtrl {
 
     public String getClientWithId(String id) {
         try {
-            return mapper.writeValueAsString(clientManager.selectWithId(Integer.parseInt(id)));
+            return mapper.writeValueAsString(clientManager.selectWithId(id));
         } catch(Exception e) {
             return null;
         }
@@ -27,7 +27,7 @@ public class RestClientCtrl {
 
     public String updateClient(String id, HttpServletRequest request) {
         try {
-            Client client = clientManager.selectWithId(Integer.parseInt(id));
+            Client client = clientManager.selectWithId(id);
             Client updatedClient = mapper.readValue(request.getInputStream(), Client.class);
             updatedClient.setResourceId(client.getResourceId());
             return mapper.writeValueAsString(clientManager.update(updatedClient));

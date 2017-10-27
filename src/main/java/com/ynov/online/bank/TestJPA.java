@@ -46,7 +46,7 @@ public class TestJPA {
             client.setAccounts(accounts);*/
 
             ClientManager clientManager = new ClientManager();
-            Client result = clientManager.selectWithId(138);
+            Client result = clientManager.selectWithId("100");
             logger.info("GET CLIENT : " + result.getLogin());
             for (Account account : result.getAccounts()) {
                 logger.info("GET ACCOUNT : " + account.getIban());
