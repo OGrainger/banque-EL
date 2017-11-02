@@ -16,21 +16,6 @@ public class ClientManager extends AbstractManagerResource {
 
     // http://jmdoudoux.developpez.com/cours/developpons/java/chap-jpa.php
 
-    public List<Client> selectAll() {
-        TypedQuery<Client> q = getEntityManagerFactory().createEntityManager().createQuery("from Client ", Client.class);
-        try {
-            List<Client> r = q.getResultList();
-            r.stream().map(client -> {
-                client.setPassword(null);
-                return client;
-            });
-            logger.info("GOT ALL CLIENTS");
-            return r;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     public Client selectWithId(String id) {
         Client r = getEntityManagerFactory().createEntityManager().find(Client.class, Integer.parseInt(id));
         logger.info("GOT CLIENT : " + r);

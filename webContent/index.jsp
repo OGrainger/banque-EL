@@ -34,6 +34,9 @@
     <c:if test="${page == 'client'}">
         <%@include file="views/client.jsp" %>
     </c:if>
+    <c:if test="${page == 'transactions'}">
+        <%@include file="views/transactions.jsp" %>
+    </c:if>
 </c:if>
 
 

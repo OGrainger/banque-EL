@@ -34,7 +34,7 @@
             </c:if>
             <div class="row">
                 <div class="col s6">
-                    <button type="submit" class="waves-effect waves-light btn-large btn-block indigo lighten-1" name="action"
+                    <button type="submit" class="waves-effect waves-light btn-large btn-block teal lighten-1" name="action"
                             value="login"><fmt:message key="log.in" /></button>
                 </div>
                 <div class="col s6">

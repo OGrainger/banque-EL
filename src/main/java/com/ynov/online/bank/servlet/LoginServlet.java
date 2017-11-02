@@ -1,7 +1,9 @@
 package com.ynov.online.bank.servlet;
 
 import com.ynov.online.bank.helper.ServletHelper;
+import com.ynov.online.bank.manager.AccountManager;
 import com.ynov.online.bank.manager.ClientManager;
+import com.ynov.online.bank.model.Account;
 import com.ynov.online.bank.model.Client;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Random;
 
 // Created on 13/10/2017
 
@@ -19,7 +22,12 @@ public class LoginServlet extends HttpServlet {
 
     private static ServletHelper helper = new ServletHelper();
     private static ClientManager clientManager = new ClientManager();
+    private static AccountManager accountManager = new AccountManager();
+    private Random random = new Random();
 
+    private final String alphabet = "0123456789ABCDEF ";
+    private final int N = alphabet.length();
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
@@ -37,9 +45,22 @@ public class LoginServlet extends HttpServlet {
         } else if (request.getParameter("action").equals("register")) {
             if (clientManager.isLoginAvailable(email)) {
                 Client c = new Client();
+                Account a = new Account();
+
                 c.setLogin(email);
                 c.setPassword(password);
                 clientManager.create(c);
+
+                StringBuilder iban = new StringBuilder();
+                a.setBalance(0);
+                for (int i = 0; i < 18; i++) {
+                    iban.append(alphabet.charAt(random.nextInt(N)));
+                }
+                a.setIban(iban.toString());
+                a.setClient(c);
+                a.setDescription("Compte courant");
+                accountManager.create(a);
+
                 request.getSession().setAttribute("client", c.getResourceId());
                 response.sendRedirect(helper.URI_CLIENT);
             } else {

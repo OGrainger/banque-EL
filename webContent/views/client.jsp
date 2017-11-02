@@ -8,8 +8,18 @@
                 <fmt:formatNumber value="${clientFullBalance}" type="currency" currencySymbol=""/>&euro;</h3>
         </div>
         <div class="col s12">
-            <button data-target="modaledit" class="btn modal-trigger waves-effect waves-light indigo lighten-1">
+            <button data-target="modaledit" class="btn modal-trigger waves-effect waves-light teal lighten-1">
                 <fmt:message key="edit.client" /></button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <br>
+        <div class="col s6">
+            <a class="waves-effect waves-light btn-large btn-block teal lighten-1" href="${pageContext.request.contextPath}/transactions"><fmt:message key="see.transactions" /></a>
+        </div>
+        <div class="col s6">
+            <a class="waves-effect waves-light btn-large btn-block indigo lighten-1" href="${pageContext.request.contextPath}/new-account"><fmt:message key="new.account" /></a>
         </div>
     </div>
     <br>
@@ -38,15 +48,6 @@
             </c:if>
             </tbody>
         </table>
-    </div>
-    <div class="row">
-        <br>
-        <div class="col s6">
-            <a class="waves-effect waves-light btn-large btn-block indigo lighten-1" href="${pageContext.request.contextPath}/transactions"><fmt:message key="see.transactions" /></a>
-        </div>
-        <div class="col s6">
-            <a class="waves-effect waves-light btn-large btn-block indigo lighten-1" href="${pageContext.request.contextPath}/new-transaction"><fmt:message key="new.transaction" /></a>
-        </div>
     </div>
 </div>
 
