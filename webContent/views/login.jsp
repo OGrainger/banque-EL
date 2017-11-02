@@ -17,25 +17,27 @@
                     <input type="password" name="password" id="password" class="validate" required>
                     <label for="password"><fmt:message key="password" /></label>
                 </div>
-                <c:if test="${wrongCredentialsError}">
-                    <div class="col s12">
-                        <div class="alert alert-danger" role="alert"><fmt:message key="error.wrong.credentials" /></div>
-                    </div>
-                </c:if>
-                <c:if test="${loginAlreadyExistsError}">
-                    <div class="col s12">
-                        <div class="alert alert-danger" role="alert"><fmt:message
-                                key="error.login.already.exists" /></div>
-                    </div>
-                </c:if>
             </div>
-
+            <c:if test="${wrongCredentialsError}">
             <div class="row">
-                <div class="col-xs-6 col-sm-6 col s6">
+                <div class="card-panel red darken-3 white-text">
+                    <p class="flow-text center-align"><fmt:message key="error.wrong.credentials" /></p>
+                </div>
+            </div>
+            </c:if>
+            <c:if test="${loginAlreadyExistsError}">
+            <div class="row">
+                <div class="card-panel red darken-3 white-text">
+                    <p class="flow-text center-align"><fmt:message key="error.login.already.exists" /></p>
+                </div>
+            </div>
+            </c:if>
+            <div class="row">
+                <div class="col s6">
                     <button type="submit" class="waves-effect waves-light btn-large btn-block indigo lighten-1" name="action"
                             value="login"><fmt:message key="log.in" /></button>
                 </div>
-                <div class="col-xs-6 col-sm-6 col s6">
+                <div class="col s6">
                     <button type="submit" class="waves-effect waves-light btn-large btn-block indigo lighten-1" name="action"
                             value="register"><fmt:message key="register" /></button>
                 </div>

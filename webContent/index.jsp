@@ -7,7 +7,7 @@
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="translations.translation" />
 
-<html lang="${language}" ->
+<html lang="${language}">
 <head>
     <title><fmt:message key="pesonal.space" /></title>
 
@@ -40,10 +40,10 @@
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="<c:url value="/js/materialize.min.js" />"></script>
-
 <script>
     $(document).ready(function () {
         $('select').material_select();
+        $('.modal').modal();
     });
     $(".dropdown-button").dropdown();
 </script>
