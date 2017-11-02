@@ -1,5 +1,6 @@
 package com.ynov.online.bank.servlet;
 
+import com.ynov.online.bank.helper.ServletHelper;
 import com.ynov.online.bank.manager.ClientManager;
 import com.ynov.online.bank.model.Client;
 
@@ -16,6 +17,7 @@ import java.io.IOException;
 @WebServlet(value = "/login", name = "SERVLET_LOGIN")
 public class LoginServlet extends HttpServlet {
 
+    private static ServletHelper helper = new ServletHelper();
     private static ClientManager clientManager = new ClientManager();
 
     @Override
@@ -23,30 +25,31 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         Boolean hasErrors = false;
-        if (request.getParameter("login") != null) {
+        if (request.getParameter("action").equals("login")) {
             Client c = clientManager.login(email, password);
             if (c != null) {
                 request.getSession().setAttribute("client", c.getResourceId());
-                response.sendRedirect("/client/" + c.getResourceId());
+                response.sendRedirect(helper.URI_CLIENT);
             } else {
                 hasErrors = true;
                 request.setAttribute("wrongCredentialsError", true);
             }
-        } else {
+        } else if (request.getParameter("action").equals("register")) {
             if (clientManager.isLoginAvailable(email)) {
                 Client c = new Client();
                 c.setLogin(email);
                 c.setPassword(password);
                 clientManager.create(c);
                 request.getSession().setAttribute("client", c.getResourceId());
-                response.sendRedirect("/client/" + c.getResourceId());
+                response.sendRedirect(helper.URI_CLIENT);
             } else {
                 hasErrors = true;
                 request.setAttribute("loginAlreadyExistsError", true);
             }
         }
+
         if (hasErrors) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(helper.URI_INDEX);
             dispatcher.forward(request, response);
         }
     }
@@ -54,11 +57,10 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (request.getSession().getAttribute("client") != null) {
-            response.sendRedirect("/client/" + request.getSession().getAttribute("client"));
+        if (request.getSession().getAttribute(helper.CONST_CLIENT) != null) {
+            response.sendRedirect(helper.URI_CLIENT);
         } else {
-            request.setAttribute("!isConnected", false);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(helper.URI_INDEX);
             dispatcher.forward(request, response);
         }
     }

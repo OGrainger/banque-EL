@@ -16,23 +16,35 @@ public class ClientManager extends AbstractManagerResource {
 
     // http://jmdoudoux.developpez.com/cours/developpons/java/chap-jpa.php
 
-    public Client selectWithId(int resourceId) {
-        TypedQuery<Client> q = getEntityManagerFactory().createEntityManager().createQuery("from Client where resourceId = ?1", Client.class);
-        q.setParameter(1, resourceId);
-        Client r = q.getSingleResult();
-        logger.info("GOT CLIENT : ", r);
+    public List<Client> selectAll() {
+        TypedQuery<Client> q = getEntityManagerFactory().createEntityManager().createQuery("from Client ", Client.class);
+        try {
+            List<Client> r = q.getResultList();
+            r.stream().map(client -> {
+                client.setPassword(null);
+                return client;
+            });
+            logger.info("GOT ALL CLIENTS");
+            return r;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Client selectWithId(String id) {
+        Client r = getEntityManagerFactory().createEntityManager().find(Client.class, Integer.parseInt(id));
+        logger.info("GOT CLIENT : " + r);
         return r;
     }
 
     public Client create(Client c) {
-
         EntityManager em = getEntityManagerFactory().createEntityManager();
         EntityTransaction t = em.getTransaction();
         t.begin();
         em.persist(c);
         t.commit();
         em.close();
-        logger.info("CREATED CLIENT : ", c);
+        logger.info("CREATED CLIENT : " + c);
         return c;
     }
 
@@ -41,24 +53,26 @@ public class ClientManager extends AbstractManagerResource {
         EntityTransaction t = em.getTransaction();
         t.begin();
 
-        TypedQuery<Client> q =  em.createQuery("from Client where resourceId = ?1", Client.class);
-        q.setParameter(1, updatedClient.getResourceId());
-        Client client = q.getSingleResult();
+        Client client = em.find(Client.class, updatedClient.getResourceId());
         if (client == null) {
-            logger.info("NO CLIENT FOUND FOR UPDATE : ", updatedClient);
+            logger.info("NO CLIENT FOUND FOR UPDATE : " + updatedClient);
             return null;
         } else {
             if (!updatedClient.getFirstName().isEmpty()) {
                 client.setFirstName(updatedClient.getFirstName());
             }
+            if (!updatedClient.getPassword().isEmpty()) {
+                client.setPassword(updatedClient.getPassword());
+                logger.info("CHANGING CLIENT " + client.getLogin() + " CREDENTIALS...");
+            }
             if (!updatedClient.getLastName().isEmpty()) {
                 client.setLastName(updatedClient.getLastName());
             }
             em.flush();
-            client = q.getSingleResult();
+            em.persist(client);
             t.commit();
             em.close();
-            logger.info("UPDATED CLIENT : ", client);
+            logger.info("UPDATED CLIENT : " + client);
             return client;
         }
     }
@@ -69,7 +83,7 @@ public class ClientManager extends AbstractManagerResource {
         q.setParameter(2, password);
         try {
             Client c = q.getSingleResult();
-            logger.info("LOGGED IN : ", c);
+            logger.info("LOGGED IN : " + c);
             return c;
         } catch (Exception e) {
             logger.info("CREDENTIALS ARE INCORRECT : " + login + ", " + password);
@@ -82,10 +96,10 @@ public class ClientManager extends AbstractManagerResource {
         q.setParameter(1, login);
         try {
             List<Client> results = q.getResultList();
-            logger.info("LOGIN NOT AVAILABLE : ", login);
+            logger.info("LOGIN NOT AVAILABLE : " + login);
             return results.isEmpty();
         } catch (Exception e) {
-            logger.info("LOGIN AVAILABLE : ", login);
+            logger.info("LOGIN AVAILABLE : " + login);
             return true;
         }
     }

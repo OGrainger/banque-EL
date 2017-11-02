@@ -1,39 +1,54 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="language"
        value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
-       scope="session"/>
-<fmt:requestEncoding value = "UTF-8" />
-<fmt:setLocale value="${language}"/>
-<fmt:setBundle basename="translations.translation"/>
+       scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="translations.translation" />
 
 <html lang="${language}">
 <head>
-    <title>O.B. - <fmt:message key="pesonal.space"/></title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title><fmt:message key="pesonal.space" /></title>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="<c:url value="/css/materialize.min.css" />" media="screen,projection" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link type="text/css" rel="stylesheet" href="<c:url value="/css/custom.css" />" />
 </head>
 
 <body>
 <%@include file="views/static/header.jsp" %>
-<div class="container">
-    <c:if test="${!isConnected}">
-        <%--Landing page--%>
-        <%@include file="views/home.jsp" %>
+
+<c:if test="${!isConnected}">
+    <%--Landing page--%>
+    <%@include file="views/login.jsp" %>
+</c:if>
+
+<c:if test="${isConnected}">
+    <%--Connected pages goes there--%>
+    <c:if test="${page == 'client'}">
+        <%@include file="views/client.jsp" %>
     </c:if>
+</c:if>
 
-    <c:if test="${isConnected}">
-        <%--Html pages goes there--%>
-        <jsp:include page="views/client.jsp">
-            <jsp:param name="test" value="this is a param value passed in a dynamic inclusion"/>
-        </jsp:include>
 
-    </c:if>
-
-</div>
-<%@include file="views/static/footer.jsp" %>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="js/bootstrap.min.js"></script>
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="<c:url value="/js/materialize.min.js" />"></script>
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+        $('.modal').modal();
+        <c:if test="${keepModalOpen}">
+        $('#modaledit').modal('open');
+        </c:if>
+    });
+    $(".dropdown-button").dropdown();
+</script>
 </body>
 </html>

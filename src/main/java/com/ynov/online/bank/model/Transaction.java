@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
-@EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
 @Entity
@@ -33,4 +32,15 @@ public class Transaction extends AbstractRestResource {
     @ManyToOne
     @JoinColumn(name = "donor_id")
     private Account donorAccount;
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "amount=" + amount +
+                ", date=" + date +
+                ", description='" + description + '\'' +
+                ", recipientAccount=" + recipientAccount +
+                ", donorAccount=" + donorAccount +
+                '}';
+    }
 }
