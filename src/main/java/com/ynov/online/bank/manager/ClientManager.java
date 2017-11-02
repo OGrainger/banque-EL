@@ -24,6 +24,7 @@ public class ClientManager extends AbstractManagerResource {
                 client.setPassword(null);
                 return client;
             });
+            logger.info("GOT ALL CLIENTS");
             return r;
         } catch (Exception e) {
             return null;
@@ -52,13 +53,17 @@ public class ClientManager extends AbstractManagerResource {
         EntityTransaction t = em.getTransaction();
         t.begin();
 
-        Client client =  em.find(Client.class, updatedClient.getResourceId());
+        Client client = em.find(Client.class, updatedClient.getResourceId());
         if (client == null) {
             logger.info("NO CLIENT FOUND FOR UPDATE : " + updatedClient);
             return null;
         } else {
             if (!updatedClient.getFirstName().isEmpty()) {
                 client.setFirstName(updatedClient.getFirstName());
+            }
+            if (!updatedClient.getPassword().isEmpty()) {
+                client.setPassword(updatedClient.getPassword());
+                logger.info("CHANGING CLIENT " + client.getLogin() + " CREDENTIALS...");
             }
             if (!updatedClient.getLastName().isEmpty()) {
                 client.setLastName(updatedClient.getLastName());

@@ -1,6 +1,7 @@
 nav ul li .select-wrapper input.select-dropdown {
     margin: 9px 0 20px 0;
-    width: 150px;
+    width: 120px;
+    border-bottom-width: 0;
 }
 
 .most-left-nav-element {
@@ -38,21 +39,14 @@ html {
     width: 100%;
 }
 
-.select-wrapper > .select-dropdown {
-    border-bottom-width: 0;
-}
-
-.select-wrapper > .caret {
+.select-wrapper > span.caret {
     color: white;
-}
-
-.card-panel {
-    margin-bottom: 0;
 }
 
 .card-panel-login {
     text-align: center;
     position: fixed;
+    margin-bottom: 0;
 }
 
 .bg-image-login {

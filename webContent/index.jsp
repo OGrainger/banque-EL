@@ -44,6 +44,9 @@
     $(document).ready(function () {
         $('select').material_select();
         $('.modal').modal();
+        <c:if test="${keepModalOpen}">
+        $('#modaledit').modal('open');
+        </c:if>
     });
     $(".dropdown-button").dropdown();
 </script>

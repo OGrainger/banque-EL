@@ -20,15 +20,15 @@
             </div>
             <c:if test="${wrongCredentialsError}">
             <div class="row">
-                <div class="card-panel red darken-3 white-text">
-                    <p class="flow-text center-align"><fmt:message key="error.wrong.credentials" /></p>
+                <div class="card-panel orange lighten-2 center-align">
+                    <span class="flow-text"><fmt:message key="error.wrong.credentials" /></span>
                 </div>
             </div>
             </c:if>
             <c:if test="${loginAlreadyExistsError}">
             <div class="row">
-                <div class="card-panel red darken-3 white-text">
-                    <p class="flow-text center-align"><fmt:message key="error.login.already.exists" /></p>
+                <div class="card-panel orange lighten-2 center-align">
+                    <span class="flow-text"><fmt:message key="error.login.already.exists" /></span>
                 </div>
             </div>
             </c:if>
@@ -45,4 +45,4 @@
         </form>
     </div>
 </div>
-<img class="bg-image-login" src="<c:url value="images/bg-login.jpg" />" alt="">
+<img class="bg-image-login hide-on-med-and-down" src="<c:url value="images/bg-login.jpg" />" alt="">

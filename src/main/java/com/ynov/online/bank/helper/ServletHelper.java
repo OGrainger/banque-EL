@@ -15,8 +15,9 @@ public class ServletHelper {
     public String CONST_TRANSACTION_AS_DONOR = "transactions-as-donor";
     public String CONST_TRANSACTION_AS_RECIPIENT = "transactions-as-recipient";
 
-    public String URL_CLIENT = "/client";
+    public String URI_CLIENT = "/client";
     public String URI_LOGIN = "/login";
+    public String URI_INDEX = "/index.jsp";
 
     public String CONTENT_TYPE = "Content-Type";
     public String CONTENT_APPLICATION_JSON = "application/json";
