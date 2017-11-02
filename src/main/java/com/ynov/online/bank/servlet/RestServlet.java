@@ -1,5 +1,7 @@
 package com.ynov.online.bank.servlet;
 
+import com.ynov.online.bank.helper.ServletHelper;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(value = "/rest/*", name = "Rest_Client")
+@WebServlet(value = "/rest/*", name = "REST")
 public class RestServlet extends HttpServlet {
 
     private static ServletHelper helper = new ServletHelper();
@@ -75,13 +77,13 @@ public class RestServlet extends HttpServlet {
             result = helper.restClientCtrl.updateClient(primaryValue, request);
         }
 
-        response.setContentType("application/json");
+        response.setContentType(helper.CONTENT_TYPE);
         PrintWriter out = response.getWriter();
         out.print(result);
     }
 
     private HttpServletResponse authorize(HttpServletRequest req, HttpServletResponse res) {
-        if (req.getSession().getAttribute("client") == null) {
+        if (req.getSession().getAttribute(helper.CONST_CLIENT) == null) {
             res.setStatus(403);
         }
         return res;

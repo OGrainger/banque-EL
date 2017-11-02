@@ -1,6 +1,6 @@
 nav ul li .select-wrapper input.select-dropdown {
     margin: 9px 0 20px 0;
-    width: 300px;
+    width: 150px;
 }
 
 .most-left-nav-element {
@@ -15,4 +15,48 @@ nav ul li .dropdown-content li > a,
 nav ul li .dropdown-content li > span {
     line-height: 38px;
     height: 66px;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+html {
+    margin:0;
+    padding:0;
+    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    background-size: cover; /* version standardisée */
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.select-wrapper > .select-dropdown {
+    border-bottom-width: 0;
+}
+
+.select-wrapper > .caret {
+    color: white;
+}
+
+.card-panel {
+    margin-bottom: 0px;
+}
+
+.card-panel-login {
+    text-align: center;
+    position: fixed;
+}
+
+.bg-image-login {
+    max-width: 100%;
+    height: auto;
+    pointer-events: none;
 }

@@ -1,4 +1,4 @@
-package com.ynov.online.bank.servlet;// Created on 27/10/2017.
+package com.ynov.online.bank.helper;// Created on 27/10/2017.
 
 import com.ynov.online.bank.controller.RestAccountCtrl;
 import com.ynov.online.bank.controller.RestClientCtrl;
@@ -16,8 +16,9 @@ public class ServletHelper {
     public String CONST_TRANSACTION_AS_RECIPIENT = "transactions-as-recipient";
 
     public String URL_CLIENT = "/client";
-    public String JSON_INFO = "\"{\"info\":\"%s\"}\"";
+    public String URI_LOGIN = "/login";
 
     public String CONTENT_TYPE = "Content-Type";
     public String CONTENT_APPLICATION_JSON = "application/json";
+
 }

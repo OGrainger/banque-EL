@@ -1,5 +1,6 @@
 package com.ynov.online.bank.servlet;
 
+import com.ynov.online.bank.helper.ServletHelper;
 import com.ynov.online.bank.manager.ClientManager;
 import com.ynov.online.bank.model.Client;
 
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 // Created on 13/10/2017
 
@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         Boolean hasErrors = false;
-        if (request.getParameter("login") != null) {
+        if (request.getParameter("action").equals("login")) {
             Client c = clientManager.login(email, password);
             if (c != null) {
                 request.getSession().setAttribute("client", c.getResourceId());
@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
                 hasErrors = true;
                 request.setAttribute("wrongCredentialsError", true);
             }
-        } else {
+        } else if (request.getParameter("action").equals("register")) {
             if (clientManager.isLoginAvailable(email)) {
                 Client c = new Client();
                 c.setLogin(email);
@@ -47,6 +47,7 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("loginAlreadyExistsError", true);
             }
         }
+
         if (hasErrors) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
@@ -59,17 +60,8 @@ public class LoginServlet extends HttpServlet {
         if (request.getSession().getAttribute(helper.CONST_CLIENT) != null) {
             response.sendRedirect(helper.URL_CLIENT);
         } else {
-            if (request.getHeader("Content-Type") != null && request.getHeader("Content-Type").equals("application/json")) {
-                response.setContentType("application/json");
-                PrintWriter out = response.getWriter();
-                out.print(String.format(helper.JSON_INFO, "Please enter your login and password as headers"));
-
-            } else {
-                request.setAttribute("!isConnected", false);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-                dispatcher.forward(request, response);
-            }
-
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }
