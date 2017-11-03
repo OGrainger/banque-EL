@@ -16,8 +16,13 @@ public class ClientCtrl {
 
     private static ClientManager clientManager = new ClientManager();
     private static AccountManager accountManager = new AccountManager();
-    private final String alphabet = "0123456789ABCDEF ";
-    private final int N = alphabet.length();
+
+    private final String numbersAndAlphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private final String numbers = "0123456789";
+
+    private final int numbersAndAlphabetLength = numbersAndAlphabet.length();
+    private final int numbersLength = numbers.length();
+
     private Random random = new Random();
 
     public void createClientWithAnAccount(Client client) {
@@ -25,13 +30,9 @@ public class ClientCtrl {
         clientManager.create(client);
 
         Account a = new Account();
-        StringBuilder iban = new StringBuilder();
-        a.setBalance(100);
-        for (int i = 0; i < 18; i++) {
-            iban.append(alphabet.charAt(random.nextInt(N)));
-        }
-        a.setIban(iban.toString());
+        a.setIban(generateIban());
         a.setClient(client);
+        a.setBalance(100);
         a.setDescription("Compte courant");
         accountManager.create(a);
         logger.info("CREATED CLIENT " + client.getLogin() + " WITH BONUS ACCOUNT");
@@ -45,5 +46,21 @@ public class ClientCtrl {
         List<Client> clients = clientManager.selectAllWithLogin(login);
         logger.info("LOGIN " + login + " IS " + (clients.isEmpty() ? "" : "NOT ") + "AVAILABLE");
         return clients.isEmpty();
+    }
+
+    private String generateIban() {
+        StringBuilder iban = new StringBuilder();
+        iban.append( "FR333020");
+        for (int i = 0; i < 5; i++) {
+            iban.append(numbers.charAt(random.nextInt(numbersLength)));
+        }
+        for (int i = 0; i < 11; i++) {
+            iban.append(numbersAndAlphabet.charAt(random.nextInt(numbersAndAlphabetLength)));
+        }
+        for (int i = 0; i < 2; i++) {
+            iban.append(numbers.charAt(random.nextInt(numbersLength)));
+        }
+
+        return iban.toString();
     }
 }
