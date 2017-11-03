@@ -2,6 +2,8 @@
 Java/JEE project for YNOV Ingésup M1 (4th year) course.
 It simulates an online bank with clients and accounts manipulation and internal transactions creation.
 
+## Usage
+Download the lastest zipped online-bank.war file in the *release* tab and start a tomcat server with it.
 ## Project details
 ### Project validation
 - [x] git
@@ -20,6 +22,7 @@ It simulates an online bank with clients and accounts manipulation and internal 
 * Java Persistence API
 * Lombok
 * JSTL
+* Materialize
 
 ## Credits
 * O. Grainger - oscargrainger@ynov.com
