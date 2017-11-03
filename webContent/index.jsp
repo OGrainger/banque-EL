@@ -11,6 +11,7 @@
 <head>
     <title><fmt:message key="pesonal.space" /></title>
 
+    <link rel="icon" href="<c:url value="images/favicon.png"/>" />
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->

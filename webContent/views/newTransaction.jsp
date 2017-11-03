@@ -15,6 +15,7 @@
             <div class="input-field col s12">
                 <select name="recipientAccountId" required>
                     <c:forEach items="${allAccounts}" var="account">
+                    <%--<option value="${account.getResourceId()}">${(account.getClient().getLogin().equals(client.getLogin())) ? '' : (account.getClient().getLogin() + ' - ')}${account.getDescription()}</option>--%>
                     <option value="${account.getResourceId()}">${account.getClient().getLogin()} - ${account.getDescription()}</option>
                     </c:forEach>
                 </select>

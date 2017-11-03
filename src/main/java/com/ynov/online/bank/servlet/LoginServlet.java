@@ -1,5 +1,6 @@
 package com.ynov.online.bank.servlet;
 
+import com.ynov.online.bank.controller.ClientCtrl;
 import com.ynov.online.bank.helper.ServletHelper;
 import com.ynov.online.bank.manager.AccountManager;
 import com.ynov.online.bank.manager.ClientManager;
@@ -21,20 +22,15 @@ import java.util.Random;
 public class LoginServlet extends HttpServlet {
 
     private static ServletHelper helper = new ServletHelper();
-    private static ClientManager clientManager = new ClientManager();
-    private static AccountManager accountManager = new AccountManager();
-    private Random random = new Random();
+    private static ClientCtrl clientCtrl = new ClientCtrl();
 
-    private final String alphabet = "0123456789ABCDEF ";
-    private final int N = alphabet.length();
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         Boolean hasErrors = false;
         if (request.getParameter("action").equals("login")) {
-            Client c = clientManager.login(email, password);
+            Client c = clientCtrl.login(email, password);
             if (c != null) {
                 request.getSession().setAttribute("client", c.getResourceId());
                 response.sendRedirect(helper.URI_CLIENT);
@@ -43,23 +39,11 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("wrongCredentialsError", true);
             }
         } else if (request.getParameter("action").equals("register")) {
-            if (clientManager.isLoginAvailable(email)) {
+            if (clientCtrl.isLoginAvailable(email)) {
                 Client c = new Client();
-                Account a = new Account();
-
                 c.setLogin(email);
                 c.setPassword(password);
-                clientManager.create(c);
-
-                StringBuilder iban = new StringBuilder();
-                a.setBalance(100);
-                for (int i = 0; i < 18; i++) {
-                    iban.append(alphabet.charAt(random.nextInt(N)));
-                }
-                a.setIban(iban.toString());
-                a.setClient(c);
-                a.setDescription("Compte courant");
-                accountManager.create(a);
+                clientCtrl.createClientWithAnAccount(c);
 
                 request.getSession().setAttribute("client", c.getResourceId());
                 response.sendRedirect(helper.URI_CLIENT);

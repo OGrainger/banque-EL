@@ -54,3 +54,7 @@ html {
     height: auto;
     pointer-events: none;
 }
+
+.mood-icon {
+    font-size: 3rem;
+}

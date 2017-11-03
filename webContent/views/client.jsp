@@ -4,12 +4,15 @@
             <h3><fmt:message key="hello" /> ${client.getFirstName()} ${client.getLastName()}</h3>
         </div>
         <div class="col s6 right-align">
-            <h3 class="thin">
+            <h3 class="thin ${clientFullBalance < 0 ? 'red-text text-darken-1' : ''}">
                 <fmt:formatNumber value="${clientFullBalance}" type="currency" currencySymbol=""/>&euro;</h3>
         </div>
-        <div class="col s12">
+        <div class="col s6">
             <button data-target="modaledit" class="btn modal-trigger waves-effect waves-light teal lighten-1">
                 <fmt:message key="edit.client" /></button>
+        </div>
+        <div class="col s6 right-align">
+            <i class="material-icons mood-icon ${clientFullBalance >= 0 ? 'green-text text-darken-1' : 'red-text text-darken-1'}">${clientFullBalance >= 0 ? 'mood' : 'mood_bad'}</i>
         </div>
     </div>
     <hr>
@@ -38,7 +41,7 @@
                 <tr>
                     <td>${account.getIban()}</td>
                     <td>${account.getDescription()}</td>
-                    <td class="right-align"><fmt:formatNumber value="${account.getBalance()}" type="currency" currencySymbol=""/>&euro;</td>
+                    <td class="right-align ${account.getBalance() < 0 ? 'red-text text-darken-1' : ''}"><fmt:formatNumber value="${account.getBalance()}" type="currency" currencySymbol=""/>&euro;</td>
                 </tr>
             </c:forEach>
             <c:if test="${client.getAccounts().isEmpty()}">
