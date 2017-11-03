@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
                 clientManager.create(c);
 
                 StringBuilder iban = new StringBuilder();
-                a.setBalance(0);
+                a.setBalance(100);
                 for (int i = 0; i < 18; i++) {
                     iban.append(alphabet.charAt(random.nextInt(N)));
                 }

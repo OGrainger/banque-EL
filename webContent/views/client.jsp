@@ -29,7 +29,7 @@
             <thead>
             <tr>
                 <th><fmt:message key="iban" /></th>
-                <th><fmt:message key="description" /></th>
+                <th><fmt:message key="type" /></th>
                 <th class="right-align"><fmt:message key="balance" /></th>
             </tr>
             </thead>

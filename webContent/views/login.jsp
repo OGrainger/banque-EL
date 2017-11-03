@@ -19,18 +19,18 @@
                 </div>
             </div>
             <c:if test="${wrongCredentialsError}">
-            <div class="row">
-                <div class="card-panel orange lighten-2 center-align">
-                    <span class="flow-text"><fmt:message key="error.wrong.credentials" /></span>
+                <div class="row">
+                    <div class="card-panel orange lighten-2 center-align">
+                        <span class="flow-text"><fmt:message key="error.wrong.credentials" /></span>
+                    </div>
                 </div>
-            </div>
             </c:if>
             <c:if test="${loginAlreadyExistsError}">
-            <div class="row">
-                <div class="card-panel orange lighten-2 center-align">
-                    <span class="flow-text"><fmt:message key="error.login.already.exists" /></span>
+                <div class="row">
+                    <div class="card-panel orange lighten-2 center-align">
+                        <span class="flow-text"><fmt:message key="error.login.already.exists" /></span>
+                    </div>
                 </div>
-            </div>
             </c:if>
             <div class="row">
                 <div class="col s6">
@@ -38,8 +38,9 @@
                             value="login"><fmt:message key="log.in" /></button>
                 </div>
                 <div class="col s6">
-                    <button type="submit" class="waves-effect waves-light btn-large btn-block indigo lighten-1" name="action"
-                            value="register"><fmt:message key="register" /></button>
+                    <button type="submit" class="waves-effect waves-light btn-large btn-block indigo lighten-1 tooltipped" name="action"
+                            value="register" data-position="top" data-delay="50" data-tooltip="<fmt:message key="new.account.offer"/>">
+                        <fmt:message key="register" /></button>
                 </div>
             </div>
         </form>

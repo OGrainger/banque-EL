@@ -13,6 +13,8 @@ public class ServletHelper {
     public String CONST_ACCOUNT = "account";
     public String CONST_TRANSACTION = "transaction";
     public String CONST_TRANSACTIONS = "transactions";
+    public String CONST_NEW_TRANSACTION = "newTransaction";
+    public String CONST_NEW_ACCOUNT = "newAccount";
     public String CONST_TRANSACTION_AS_DONOR = "transactions-as-donor";
     public String CONST_TRANSACTION_AS_RECIPIENT = "transactions-as-recipient";
 
