@@ -34,6 +34,15 @@
     <c:if test="${page == 'client'}">
         <%@include file="views/client.jsp" %>
     </c:if>
+    <c:if test="${page == 'transactions'}">
+        <%@include file="views/transactions.jsp" %>
+    </c:if>
+    <c:if test="${page == 'newAccount'}">
+        <%@include file="views/newAccount.jsp" %>
+    </c:if>
+    <c:if test="${page == 'newTransaction'}">
+        <%@include file="views/newTransaction.jsp" %>
+    </c:if>
 </c:if>
 
 
@@ -44,6 +53,7 @@
     $(document).ready(function () {
         $('select').material_select();
         $('.modal').modal();
+        $('.tooltipped').tooltip({delay: 50});
         <c:if test="${keepModalOpen}">
         $('#modaledit').modal('open');
         </c:if>

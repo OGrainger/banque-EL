@@ -15,11 +15,11 @@
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/database"></property>
             <property name="hibernate.connection.username" value="root"></property>
             <property name="hibernate.connection.password" value="password"></property>
+            <property name="hibernate.connection.pool_size" value="100"></property>
             <property name="hibernate.show_sql" value="true"></property>
             <property name="hibernate.format_sql" value="true"></property>
             <property name="hibernate.flushMode" value="FLUSH_AUTO"></property>
             <property name="hibernate.hbm2ddl.auto" value="update"></property>
-            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"></property>-->
         </properties>
     </persistence-unit>
 </persistence>
