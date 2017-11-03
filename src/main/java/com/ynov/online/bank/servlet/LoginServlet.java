@@ -2,9 +2,6 @@ package com.ynov.online.bank.servlet;
 
 import com.ynov.online.bank.controller.ClientCtrl;
 import com.ynov.online.bank.helper.ServletHelper;
-import com.ynov.online.bank.manager.AccountManager;
-import com.ynov.online.bank.manager.ClientManager;
-import com.ynov.online.bank.model.Account;
 import com.ynov.online.bank.model.Client;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Random;
 
 // Created on 13/10/2017
 
@@ -39,17 +35,24 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("wrongCredentialsError", true);
             }
         } else if (request.getParameter("action").equals("register")) {
-            if (clientCtrl.isLoginAvailable(email)) {
-                Client c = new Client();
-                c.setLogin(email);
-                c.setPassword(password);
-                clientCtrl.createClientWithAnAccount(c);
 
-                request.getSession().setAttribute("client", c.getResourceId());
-                response.sendRedirect(helper.URI_CLIENT);
+            if (clientCtrl.checkPassword(password)) {
+
+                if (clientCtrl.isLoginAvailable(email)) {
+                    Client c = new Client();
+                    c.setLogin(email);
+                    c.setPassword(password);
+                    clientCtrl.createClientWithAnAccount(c);
+
+                    request.getSession().setAttribute("client", c.getResourceId());
+                    response.sendRedirect(helper.URI_CLIENT);
+                } else {
+                    hasErrors = true;
+                    request.setAttribute("loginAlreadyExistsError", true);
+                }
             } else {
                 hasErrors = true;
-                request.setAttribute("loginAlreadyExistsError", true);
+                request.setAttribute("passwordDoesNotMeetRequirementsError", true);
             }
         }
 

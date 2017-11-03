@@ -1,17 +1,17 @@
 <div class="container">
     <div class="row">
-        <div class="col s6">
+        <div class="col m6">
             <h3><fmt:message key="hello" /> ${client.getFirstName()} ${client.getLastName()}</h3>
         </div>
-        <div class="col s6 right-align">
+        <div class="col m6 right-align">
             <h3 class="thin ${clientFullBalance < 0 ? 'red-text text-darken-1' : ''}">
-                <fmt:formatNumber value="${clientFullBalance}" type="currency" currencySymbol=""/>&euro;</h3>
+                <fmt:message key="asset"/> : <fmt:formatNumber value="${clientFullBalance}" type="currency" currencySymbol=""/>&euro;</h3>
         </div>
-        <div class="col s6">
+        <div class="col m6">
             <button data-target="modaledit" class="btn modal-trigger waves-effect waves-light teal lighten-1">
                 <fmt:message key="edit.client" /></button>
         </div>
-        <div class="col s6 right-align">
+        <div class="col s6 right-align hide-on-med-and-down">
             <i class="material-icons mood-icon ${clientFullBalance >= 0 ? 'green-text text-darken-1' : 'red-text text-darken-1'}">${clientFullBalance >= 0 ? 'mood' : 'mood_bad'}</i>
         </div>
     </div>

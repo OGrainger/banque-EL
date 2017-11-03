@@ -19,7 +19,7 @@ You can interact with the server with :
 - [x] Login with password
 - [x] Access token + expiration
 - [x] i18n (internationalization)
-- [ ] TDD
+- [x] TDD
 - [ ] Ajax
 ### Libraries used
 * Java Persistence API

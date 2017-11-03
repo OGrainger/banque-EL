@@ -48,6 +48,10 @@ public class ClientCtrl {
         return clients.isEmpty();
     }
 
+    public Boolean checkPassword(String password) {
+        return password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[?!@$%^&*-]).{8,}$");
+    }
+
     private String generateIBAN() {
         StringBuilder iban = new StringBuilder();
         iban.append( "FR333020");
