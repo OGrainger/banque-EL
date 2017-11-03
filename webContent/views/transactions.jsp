@@ -1,17 +1,6 @@
 <div class="container">
     <div class="row">
         <div class="col s6">
-            <h3><fmt:message key="hello" /> ${client.getFirstName()} ${client.getLastName()}</h3>
-        </div>
-        <div class="col s6 right-align">
-            <h3 class="thin">
-                <fmt:formatNumber value="${clientFullBalance}" type="currency" currencySymbol=""/>&euro;</h3>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <br>
-        <div class="col s6">
             <a class="waves-effect waves-light btn-large btn-block teal lighten-1" href="${pageContext.request.contextPath}/client"><fmt:message key="see.accounts" /></a>
         </div>
         <div class="col s6">

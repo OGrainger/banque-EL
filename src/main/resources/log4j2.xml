@@ -20,10 +20,10 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="com.ynov.online.bank" level="info" additivity="false">
+        <Logger name="com.ynov.online.bank" level="info">
             <appender-ref ref="file-log" level="info"/>
         </Logger>
-        <Root level="info" additivity="false">
+        <Root level="info">
             <appender-ref ref="console"/>
         </Root>
     </Loggers>
