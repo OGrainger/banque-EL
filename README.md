@@ -4,6 +4,10 @@ It simulates an online bank with clients and accounts manipulation and internal 
 
 ## Usage
 Download the lastest zipped online-bank.war file in the *release* tab and start a tomcat server with it.
+
+You can interact with the server with :
+* A browser
+* Postman, with header *Content-Type* set to *application/json*. List of requests available soon
 ## Project details
 ### Project validation
 - [x] git
@@ -16,13 +20,15 @@ Download the lastest zipped online-bank.war file in the *release* tab and start 
 - [x] Login with password
 - [x] Access token + expiration
 - [x] i18n (internationalization)
-- [ ] TDD
+
+- [x] TDD
 - [ ] Ajax
 ### Libraries used
 * Java Persistence API
-* Lombok
+* Lombok (Getter, setter, ToString, Constructor generator)
 * JSTL
-* Materialize
+* Materialize (CSS / JS)
+* Jackson (JSON / Java object converter)
 
 ## Credits
 * O. Grainger - oscargrainger@ynov.com

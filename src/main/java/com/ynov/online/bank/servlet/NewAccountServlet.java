@@ -3,10 +3,8 @@ package com.ynov.online.bank.servlet;
 import com.ynov.online.bank.helper.ServletHelper;
 import com.ynov.online.bank.manager.AccountManager;
 import com.ynov.online.bank.manager.ClientManager;
-import com.ynov.online.bank.manager.TransactionManager;
 import com.ynov.online.bank.model.Account;
 import com.ynov.online.bank.model.Client;
-import com.ynov.online.bank.model.Transaction;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 // Created on 27/10/2017.
 @WebServlet(name = "SERVLET_NEW_ACCOUNT", value = "/new-account")

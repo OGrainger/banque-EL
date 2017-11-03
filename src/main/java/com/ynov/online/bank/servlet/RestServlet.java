@@ -28,8 +28,6 @@ public class RestServlet extends HttpServlet {
         String primaryValue = uri[uri.length - 1];
         String result = null;
 
-        response = authorize(request, response);
-
         if (primaryKey.equals(helper.CONST_CLIENT)) {
             result = helper.restClientCtrl.getClientWithId(primaryValue);
         } else if (primaryKey.equals(helper.CONST_ACCOUNT)) {
@@ -80,12 +78,5 @@ public class RestServlet extends HttpServlet {
         response.setContentType(helper.CONTENT_TYPE);
         PrintWriter out = response.getWriter();
         out.print(result);
-    }
-
-    private HttpServletResponse authorize(HttpServletRequest req, HttpServletResponse res) {
-        if (req.getSession().getAttribute(helper.CONST_CLIENT) == null) {
-            res.setStatus(403);
-        }
-        return res;
     }
 }

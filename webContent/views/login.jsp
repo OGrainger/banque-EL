@@ -13,7 +13,7 @@
                     <label for="email"><fmt:message key="email" /></label>
                 </div>
                 <div class="input-field col s12">
-                    <i class="material-icons prefix">lock_outline</i>
+                    <i class="material-icons prefix tooltipped" data-position="right" data-delay="50" data-tooltip="<fmt:message key="password.information"/>">lock_outline</i>
                     <input type="password" name="password" id="password" class="validate" required>
                     <label for="password"><fmt:message key="password" /></label>
                 </div>
@@ -29,6 +29,13 @@
                 <div class="row">
                     <div class="card-panel orange lighten-2 center-align">
                         <span class="flow-text"><fmt:message key="error.login.already.exists" /></span>
+                    </div>
+                </div>
+            </c:if>
+            <c:if test="${passwordDoesNotMeetRequirementsError}">
+                <div class="row">
+                    <div class="card-panel orange lighten-2 center-align">
+                        <span class="flow-text"><fmt:message key="error.password.doesnt.meet.requirements" /></span>
                     </div>
                 </div>
             </c:if>

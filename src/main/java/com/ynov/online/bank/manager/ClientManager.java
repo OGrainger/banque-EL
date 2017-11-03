@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -62,30 +63,25 @@ public class ClientManager extends AbstractManagerResource {
         }
     }
 
-    public Client login(String login, String password) {
+    public Client selectWithLoginAndPassword(String login, String password) {
         TypedQuery<Client> q = getEntityManagerFactory().createEntityManager().createQuery("from Client where login = ?1 and password = ?2", Client.class);
         q.setParameter(1, login);
         q.setParameter(2, password);
         try {
-            Client c = q.getSingleResult();
-            logger.info("LOGGED IN : " + c);
-            return c;
+            return q.getSingleResult();
         } catch (Exception e) {
             logger.info("CREDENTIALS ARE INCORRECT : " + login + ", " + password);
             return null;
         }
     }
 
-    public boolean isLoginAvailable(String login) {
+    public List<Client> selectAllWithLogin(String login) {
         TypedQuery<Client> q = getEntityManagerFactory().createEntityManager().createQuery("from Client where login = ?1", Client.class);
         q.setParameter(1, login);
         try {
-            List<Client> results = q.getResultList();
-            logger.info("LOGIN NOT AVAILABLE : " + login);
-            return results.isEmpty();
+            return q.getResultList();
         } catch (Exception e) {
-            logger.info("LOGIN AVAILABLE : " + login);
-            return true;
+            return new ArrayList<>();
         }
     }
 }
