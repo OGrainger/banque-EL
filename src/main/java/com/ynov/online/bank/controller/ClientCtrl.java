@@ -30,7 +30,7 @@ public class ClientCtrl {
         clientManager.create(client);
 
         Account a = new Account();
-        a.setIban(generateIban());
+        a.setIban(generateIBAN());
         a.setClient(client);
         a.setBalance(100);
         a.setDescription("Compte courant");
@@ -48,7 +48,7 @@ public class ClientCtrl {
         return clients.isEmpty();
     }
 
-    private String generateIban() {
+    private String generateIBAN() {
         StringBuilder iban = new StringBuilder();
         iban.append( "FR333020");
         for (int i = 0; i < 5; i++) {

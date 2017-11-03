@@ -58,7 +58,7 @@
 <div id="modaledit" class="modal">
     <div class="modal-content">
         <h4><fmt:message key="edit.client" /></h4>
-        <form method="post" action="${pageContext.request.contextPath}/client">
+        <form method="post" action="${pageContext.request.contextPath}/client" autocomplete ="off">
             <div class="input-field col s6">
                 <input name="verification" id="password" type="password" class="validate" required>
                 <label for="password"><fmt:message key="current.password" /></label>
