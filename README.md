@@ -7,7 +7,7 @@ Download the lastest zipped online-bank.war file in the *release* tab and start 
 
 You can interact with the server with :
 * A browser
-* Postman, with header *Content-Type* set to *application/json*. List of requests available soon
+* Postman, with header *Content-Type* set to *application/json*. List of requests available on the project wiki.
 ## Project details
 ### Project validation
 - [x] git
